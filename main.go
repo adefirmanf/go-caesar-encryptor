@@ -14,8 +14,8 @@ func hashLetterFn(key int, letter string) (result string) {
 	return fmt.Sprintf(`%s%s`, lastLetterKey, leftOversLetter)
 }
 
-func encrypt(plainText string) (result string) {
-	hashLetter := hashLetterFn(4, originalLetter)
+func encrypt(key int, plainText string) (result string) {
+	hashLetter := hashLetterFn(key, originalLetter)
 	var hashedString = ""
 	findOne := func(r rune) rune {
 		pos := strings.Index(originalLetter, string([]rune{r}))
@@ -29,8 +29,8 @@ func encrypt(plainText string) (result string) {
 	strings.Map(findOne, plainText)
 	return hashedString
 }
-func decrypt(encrypttedText string) (result string) {
-	hashLetter := hashLetterFn(4, originalLetter)
+func decrypt(key int, encrypttedText string) (result string) {
+	hashLetter := hashLetterFn(key, originalLetter)
 	var hashedString = ""
 	findOne := func(r rune) rune {
 		pos := strings.Index(hashLetter, string([]rune{r}))
@@ -48,8 +48,8 @@ func decrypt(encrypttedText string) (result string) {
 func main() {
 	plainText := "HELLOWORLD"
 	fmt.Println("Plain Text", plainText)
-	encrypted := encrypt(plainText)
+	encrypted := encrypt(5, plainText)
 	fmt.Println("Encrypted", encrypted)
-	decrypted := decrypt(encrypted)
+	decrypted := decrypt(5, encrypted)
 	fmt.Println("Decrypted", decrypted)
 }
